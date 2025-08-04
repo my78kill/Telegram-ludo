@@ -33,7 +33,7 @@ async def start(client, message: Message):
             [[
                 InlineKeyboardButton(
                     text="🎮 Start Ludo Game",
-                    web_app=WebAppInfo(url="https://ludobygaurave.onrender.com")
+                    web_app=WebAppInfo(url="https://telegram-ludo.onrender.com")
                 )
             ]]
         ),
