@@ -1,12 +1,29 @@
+from flask import Flask
+from threading import Thread
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo, Message
+import os
 
-API_ID = 26047145   # ← Replace with your actual api_id
-API_HASH = "3864baec5159bcacbd4ccbbc48a4afa6"  # ← Replace with your actual api_hash
-BOT_TOKEN = "7970747968:AAGs5qYbIQixAMvyzESmmHeb4kGigTotRjA"  # ← Replace with your bot token
+# Flask app
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Bot is running!"
+
+def run():
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+
+# Start Flask server in a new thread
+Thread(target=run).start()
+
+# Pyrogram bot setup
+API_ID = 26047145
+API_HASH = "3864baec5159bcacbd4ccbbc48a4afa6"
+BOT_TOKEN = "7970747968:AAGs5qYbIQixAMvyzESmmHeb4kGigTotRjA"
 
 bot = Client("LudoMiniAppBot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
-
 
 @bot.on_message(filters.command("start"))
 async def start(client, message: Message):
@@ -22,6 +39,5 @@ async def start(client, message: Message):
         ),
         quote=True
     )
-
 
 bot.run()
